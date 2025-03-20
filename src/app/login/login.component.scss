@@ -1,0 +1,92 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 650px;
+    margin: 0px auto;
+    background: #FFFFFF;
+    padding: 50px 80px;
+    border-radius: 15px;
+    }
+    .title{
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 36px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+.form_block{
+    width: 100%;
+    label{
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 20px;
+        margin-bottom: 15px;
+        color: #17171799;
+        display: block;
+    }
+    input{
+        border:none;
+        width: 100%;
+         outline: none;
+         font-size: 14px;
+         font-weight: 500;
+         line-height: 24px;
+         padding:11px 24px;
+         background-color: #8F92A10D;
+         border-radius: 15px;
+         box-sizing: border-box;
+          margin-bottom: 25px;
+         
+          &::-webkit-contacts-auto-fill-button {
+            opacity: 0;
+        }
+    }
+    #password{
+        margin-bottom: 0px;
+    }
+    .btn{
+        margin-top: 20px;
+            width:100%;
+            padding: 10px 50px;
+            border:none;
+            background: #0052CC;
+            border-radius: 30px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            &:hover {
+         
+                cursor: pointer;
+              }
+              &:disabled {
+               opacity: 50%; 
+            }
+          
+    }
+    .alert-danger{
+       color: rgba(222, 53, 11, 1);
+       font-size: 12px;
+       font-weight: 400;
+       line-height: 16px;
+       height: 15px;
+       opacity: 0;
+    }
+    .error{
+        border: 1px solid rgba(222, 53, 11, 0.6);
+        background: url(/assets/images/error.svg) no-repeat center right 16px;
+        position: relative;
+    
+    }
+    .error_label{
+    opacity: 1;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .container{
+        padding: 30px 20px;
+        margin: 0 20px;
+        max-width: 100%;
+        }
+}

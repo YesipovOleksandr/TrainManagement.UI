@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="top_block">
+   
+    <div class="update" (click)="reloadPage()">
+      <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M0.625 5.91595L2.03921 4.50174L3.84736 6.30988C4.02761 4.80721 4.69436 3.35174 5.84751 2.1986C8.58118 -0.535079 13.0133 -0.535072 15.747 2.19862C18.4807 4.93229 18.4807 9.36444 15.747 12.0981C14.2264 13.6187 12.1802 14.2935 10.1932 14.1224L10.5004 12.1396C11.8771 12.221 13.281 11.7357 14.3328 10.6839C16.2854 8.73129 16.2854 5.56544 14.3328 3.61283C12.3802 1.66019 9.21432 1.6602 7.26172 3.61281C6.49324 4.38129 6.02717 5.33777 5.86359 6.33422L7.6961 4.50171L9.11033 5.91595L4.86766 10.1586L0.625 5.91595Z"
+          fill="#8F92A1" />
+      </svg>
+    </div>
+    <div class="top_block__right">
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchText" 
+        (input)="onSearchChange(searchText)" 
+        placeholder="Search components..."
+        class="search-input"
+      />
+    </div>
+
+    <div class="next_block">
+
+      <p>{{pageRange }}</p>
+
+      <div [hidden]="isFirstPage">
+        <svg width="10" height="16" (click)="goToPage(currentPage-1)" viewBox="0 0 10 16" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M9.2431 2.34317L7.8288 0.928955L0.757812 8L7.8289 15.0711L9.2431 13.6569L3.5862 8L9.2431 2.34317Z"
+            fill="#8F92A1" />
+        </svg>
+      </div>
+      <div [hidden]="isLastPage">
+        <svg width="9" height="15" (click)="goToPage(currentPage+1)" viewBox="0 0 9 15" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M0 1.41422L1.4143 0L8.4853 7.07108L1.4143 14.1422L0 12.7279L5.6569 7.07108L0 1.41422Z" fill="#8F92A1" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  </div>
+      <table class="tab-content">
+        <tbody>
+          <a [attr.href]="'inbox/' +TrainComponent.id" *ngFor="let TrainComponent of TrainComponentsList?.items">
+            <tr>
+              <td class="activetr">
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11.6097 0.31425C11.4694 0.117 11.2422 0 10.9999 0H1.24991C0.968658 0 0.711408 0.15675 0.582408 0.4065C0.454158 0.657 0.476658 0.957 0.640158 1.18575L4.07816 6L0.639408 10.8143C0.475908 11.043 0.454158 11.343 0.582408 11.5935C0.711408 11.8433 0.968658 12 1.24991 12H10.9999C11.2422 12 11.4694 11.883 11.6097 11.6857L15.3597 6.43575C15.5464 6.17475 15.5464 5.82525 15.3597 5.56425L11.6097 0.31425Z"
+                    fill="#8F92A1" fill-opacity="0.2" />
+                </svg>
+              </td>
+              <td class="name">{{TrainComponent.name}}</td>
+              <td class="email_body"><div [innerHTML]="TrainComponent.uniqueNumber"></div></td>
+            </tr>
+          </a>
+        </tbody>
+      </table>
+
+  </div>

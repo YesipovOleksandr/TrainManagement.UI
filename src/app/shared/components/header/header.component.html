@@ -1,0 +1,26 @@
+<header id="header" class="header">
+  <div class="header_container">
+    <div class="header_content">
+  <a href="/">
+  <h1>Train Management</h1>
+</a>
+<div class="header__menu menu {{isOpenBurger?'menu_active':''}}">
+  <ul class="menu__list" *ngIf="isUserAuthenticated()">
+   
+    <li>
+      <a class="logout btn_header hover_btn" (click)="logOut()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19.4856 20H15.4856V18H19.4856V6H15.4856V4H19.4856C20.5902 4 21.4856 4.89543 21.4856 6V18C21.4856 19.1046 20.5902 20 19.4856 20ZM8.73788 16.9768L10.1581 18.385L16.495 11.9941L10.1041 5.65723L8.69587 7.07743L12.6763 11.0242H3.51417C2.96188 11.0242 2.51416 11.4719 2.51416 12.0242C2.51416 12.5765 2.96187 13.0242 3.51415 13.0242H12.6571L8.73788 16.9768Z"
+            fill="#8F92A1" />
+        </svg>Log out</a></li>
+  </ul>
+  </div>
+  <button *ngIf="isUserAuthenticated()" class="burger {{isOpenBurger?'burger_active':''}}" (click)="openBurger()">
+      <span></span>
+      <span></span>
+      <span></span>
+  </button>
+</div>
+</div>
+</header>
