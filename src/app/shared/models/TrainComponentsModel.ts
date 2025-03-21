@@ -3,5 +3,5 @@ export class TrainComponentsModel {
     name:string;
     uniqueNumber: string;
     canAssignQuantity: boolean;
-    quantity: string|null;
+    quantity: number|null;
   }

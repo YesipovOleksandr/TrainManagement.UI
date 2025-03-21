@@ -9,11 +9,11 @@
     <label for="uniqueNumber" class="sr-only">Unique Number</label>
     <input id="uniqueNumber" name="uniqueNumber" [(ngModel)]="newTrainComponent.uniqueNumber"
       class="form-control {{invalidCreate?'error':''}}" placeholder="Unique Number" required #uniqueNumber="ngModel">
-
-    <label for="canAssignQuantity" class="sr-only">Can Assign Quantity</label>
-    <input id="canAssignQuantity" name="canAssignQuantity" [(ngModel)]="newTrainComponent.canAssignQuantity"
-      class="form-control" placeholder="Can Assign Quantity" type="checkbox" #canAssignQuantity="ngModel">
-      
+    <div class="check_block">
+        <label for="canAssignQuantity" class="sr-only">Can Assign Quantity?</label>
+        <input id="canAssignQuantity" name="canAssignQuantity" [(ngModel)]="newTrainComponent.canAssignQuantity"
+          class="form-control" placeholder="Can Assign Quantity" type="checkbox" #canAssignQuantity="ngModel">
+        </div>
     <div *ngIf="newTrainComponent.canAssignQuantity">
       <label for="quantity" class="sr-only">Quantity</label>
       <input id="quantity" name="quantity" [(ngModel)]="newTrainComponent.quantity"

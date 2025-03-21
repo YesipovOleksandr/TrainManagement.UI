@@ -26,14 +26,13 @@
     font-size: 12px;
     font-weight: 700;
     line-height: 20px;
-    margin-bottom: 15px;
     color: #17171799;
     display: block;
+    margin-bottom: 25px;
   }
   
   .form_block input {
     border: none;
-    width: 100%;
     outline: none;
     font-size: 14px;
     font-weight: 500;
@@ -90,5 +89,10 @@
       margin: 0 20px;
       max-width: 100%;
     }
+  }
+  .check_block{
+    display: flex;
+    align-items: center;
+    gap:20px;
   }
   

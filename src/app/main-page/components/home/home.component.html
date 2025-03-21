@@ -1,7 +1,5 @@
 <div class="container">
-
   <div class="top_block">
-   
     <div class="update" (click)="reloadPage()">
       <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -10,63 +8,65 @@
       </svg>
     </div>
     <div class="top_block__right">
-    <div class="search-container">
-      <input 
-        type="text" 
-        [(ngModel)]="searchText" 
-        (input)="onSearchChange(searchText)" 
-        placeholder="Search components..."
-        class="search-input"
-      />
-    </div>
-
-    <div class="next_block">
-
-      <p>{{pageRange }}</p>
-
-      <div [hidden]="isFirstPage">
-        <svg width="10" height="16" (click)="goToPage(currentPage-1)" viewBox="0 0 10 16" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M9.2431 2.34317L7.8288 0.928955L0.757812 8L7.8289 15.0711L9.2431 13.6569L3.5862 8L9.2431 2.34317Z"
-            fill="#8F92A1" />
-        </svg>
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="searchText" 
+          (input)="onSearchChange(searchText)" 
+          placeholder="Search components..."
+          class="search-input"
+        />
       </div>
-      <div [hidden]="isLastPage">
-        <svg width="9" height="15" (click)="goToPage(currentPage+1)" viewBox="0 0 9 15" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M0 1.41422L1.4143 0L8.4853 7.07108L1.4143 14.1422L0 12.7279L5.6569 7.07108L0 1.41422Z" fill="#8F92A1" />
-        </svg>
+      <div class="next_block">
+        <p>{{pageRange }}</p>
+        <div [hidden]="isFirstPage">
+          <svg width="10" height="16" (click)="goToPage(currentPage-1)" viewBox="0 0 10 16" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M9.2431 2.34317L7.8288 0.928955L0.757812 8L7.8289 15.0711L9.2431 13.6569L3.5862 8L9.2431 2.34317Z"
+              fill="#8F92A1" />
+          </svg>
+        </div>
+        <div [hidden]="isLastPage">
+          <svg width="9" height="15" (click)="goToPage(currentPage+1)" viewBox="0 0 9 15" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M0 1.41422L1.4143 0L8.4853 7.07108L1.4143 14.1422L0 12.7279L5.6569 7.07108L0 1.41422Z" fill="#8F92A1" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-      <table class="tab-content">
-        <tbody>
-          <tr *ngFor="let TrainComponent of TrainComponentsList?.items">
-              <td class="activetr">
-                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M11.6097 0.31425C11.4694 0.117 11.2422 0 10.9999 0H1.24991C0.968658 0 0.711408 0.15675 0.582408 0.4065C0.454158 0.657 0.476658 0.957 0.640158 1.18575L4.07816 6L0.639408 10.8143C0.475908 11.043 0.454158 11.343 0.582408 11.5935C0.711408 11.8433 0.968658 12 1.24991 12H10.9999C11.2422 12 11.4694 11.883 11.6097 11.6857L15.3597 6.43575C15.5464 6.17475 15.5464 5.82525 15.3597 5.56425L11.6097 0.31425Z"
-                    fill="#8F92A1" fill-opacity="0.2" />
-                </svg>
-              </td>
-              <td class="name">{{TrainComponent.id}}</td>
-              <td class="name">{{TrainComponent.name}}</td>
-              <td class="name">{{TrainComponent.uniqueNumber}}</td>       
-              <td class="name">{{TrainComponent.canAssignQuantity}}</td>
-              <td class="name">{{TrainComponent.quantity}}</td>
-              <td> <button class="btn btn-danger" (click)="openDeleteModal(TrainComponent)">Delete</button></td>
-            </tr>
-        </tbody>
-      </table>
 
-      <app-delete-modal 
-        *ngIf="showModal" 
-        [itemName]="selectedItem?.name"
-        (confirmDelete)="confirmDelete()"
-        (cancelDelete)="cancelDelete()">
-      </app-delete-modal>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Unique Number</th>
+        <th>Can Assign Quantity?</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let TrainComponent of TrainComponentsList?.items" (click)="goToDetails(TrainComponent.id)">
+        <td class="name">{{TrainComponent.id}}</td>
+        <td class="name">{{TrainComponent.name}}</td>
+        <td class="name">{{TrainComponent.uniqueNumber}}</td>
+        <td class="name">{{ TrainComponent.canAssignQuantity ? 'Yes' : 'No' }}</td>
+        <td class="name">{{TrainComponent.quantity}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="openDeleteModal(TrainComponent); $event.stopPropagation()">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  </div>
+  <app-delete-modal 
+    *ngIf="showModal" 
+    [itemName]="selectedItem?.name"
+    (confirmDelete)="confirmDelete()"
+    (cancelDelete)="cancelDelete()">
+  </app-delete-modal>
+</div>

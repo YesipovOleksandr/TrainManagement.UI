@@ -48,4 +48,24 @@ export class TrainComponentService {
       })
     });
   }
+
+  getTrainComponentById(id: number): Observable<TrainComponentsModel> {
+    const auth_token = this.authService.getToken();
+    return this.http.get<TrainComponentsModel>(`${environment.apiUrl}TrainComponents/${id}`, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${auth_token}`
+      })
+    });
+  }
+
+  updateQuantity(id: number, quantity: number): Observable<void> {
+    const auth_token = this.authService.getToken();
+    return this.http.patch<void>(`${environment.apiUrl}TrainComponents/${id}/quantity`, quantity, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth_token}`
+      })
+    });
+  }
 }

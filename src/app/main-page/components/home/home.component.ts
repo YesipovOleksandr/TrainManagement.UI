@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TrainComponentService } from '../../../shared/services/train-component.service';
 import { TrainComponentsListModel } from '../../../shared/models/TrainComponentsListModel';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'home-home',
   templateUrl: './home.component.html',
@@ -11,7 +11,6 @@ import { TrainComponentsListModel } from '../../../shared/models/TrainComponents
 })
 
 export class HomeComponent implements OnInit {
-  invalidResponse: boolean;
   TrainComponentsList: TrainComponentsListModel;
   searchText: string = '';
   pageSize = 2;
@@ -24,7 +23,7 @@ export class HomeComponent implements OnInit {
   showModal = false;
 
   constructor(
-    private trainComponentService: TrainComponentService) {
+    private trainComponentService: TrainComponentService,private router: Router) {
   }
 
   ngOnInit(): void {
@@ -62,7 +61,6 @@ export class HomeComponent implements OnInit {
           console.log(this.TrainComponentsList);
         },
         error: (err: HttpErrorResponse)=>{
-          this.invalidResponse = true
           console.log(err);
         } 
       })
@@ -88,6 +86,10 @@ export class HomeComponent implements OnInit {
       this.trainComponentService.deleteTrainComponent(this.selectedItem.id).subscribe({
         next: () => {
           this.TrainComponentsList.items = this.TrainComponentsList.items.filter(c => c.id !== this.selectedItem.id);
+          if (this.TrainComponentsList.items.length === 0) {
+            this.GetsTrainComponents();
+            this.goToPage(1);
+          }
           this.totalItems--;
           this.calculateTotalPages();
           this.selectedItem = null;
@@ -105,4 +107,7 @@ export class HomeComponent implements OnInit {
     this.showModal = false;
   }
 
+  goToDetails(id: number): void {
+    this.router.navigate([`/details/${id}`]);
+  }
 }
