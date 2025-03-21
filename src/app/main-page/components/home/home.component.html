@@ -44,8 +44,7 @@
   </div>
       <table class="tab-content">
         <tbody>
-          <a [attr.href]="'inbox/' +TrainComponent.id" *ngFor="let TrainComponent of TrainComponentsList?.items">
-            <tr>
+          <tr *ngFor="let TrainComponent of TrainComponentsList?.items">
               <td class="activetr">
                 <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -53,11 +52,21 @@
                     fill="#8F92A1" fill-opacity="0.2" />
                 </svg>
               </td>
+              <td class="name">{{TrainComponent.id}}</td>
               <td class="name">{{TrainComponent.name}}</td>
-              <td class="email_body"><div [innerHTML]="TrainComponent.uniqueNumber"></div></td>
+              <td class="name">{{TrainComponent.uniqueNumber}}</td>       
+              <td class="name">{{TrainComponent.canAssignQuantity}}</td>
+              <td class="name">{{TrainComponent.quantity}}</td>
+              <td> <button class="btn btn-danger" (click)="openDeleteModal(TrainComponent)">Delete</button></td>
             </tr>
-          </a>
         </tbody>
       </table>
+
+      <app-delete-modal 
+        *ngIf="showModal" 
+        [itemName]="selectedItem?.name"
+        (confirmDelete)="confirmDelete()"
+        (cancelDelete)="cancelDelete()">
+      </app-delete-modal>
 
   </div>

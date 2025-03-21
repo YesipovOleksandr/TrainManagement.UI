@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AuthService } from '../../../shared/services/auth.service';
-import { environment } from 'src/environments/environment';
-import { TrainComponentsListModel } from '../../models/TrainComponentsListModel';
+import { TrainComponentService } from '../../../shared/services/train-component.service';
+import { TrainComponentsListModel } from '../../../shared/models/TrainComponentsListModel';
 
 @Component({
   selector: 'home-home',
@@ -13,7 +12,6 @@ import { TrainComponentsListModel } from '../../models/TrainComponentsListModel'
 
 export class HomeComponent implements OnInit {
   invalidResponse: boolean;
-  auth_token: string;
   TrainComponentsList: TrainComponentsListModel;
   searchText: string = '';
   pageSize = 2;
@@ -22,14 +20,14 @@ export class HomeComponent implements OnInit {
   totalItems: number = 0;
   isFirstPage: boolean = false;
   isLastPage: boolean = false;
+  selectedItem: any = null;
+  showModal = false;
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthService) {
+    private trainComponentService: TrainComponentService) {
   }
 
   ngOnInit(): void {
-    this.auth_token = this.authService.getToken();
     this.GetsTrainComponents();
   }
 
@@ -55,17 +53,7 @@ export class HomeComponent implements OnInit {
   }
 
   GetsTrainComponents() {
-    this.http.get<TrainComponentsListModel>(environment.apiUrl + "TrainComponents", {
-      params: {
-        page: this.currentPage,
-        number: this.pageSize,
-        search: this.searchText || ''
-      },
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${this.auth_token}`
-      })
-    })
+    this.trainComponentService.getTrainComponents(this.currentPage, this.pageSize, this.searchText)
       .subscribe({
         next: (response: TrainComponentsListModel) => {
           this.TrainComponentsList = response;
@@ -88,6 +76,33 @@ export class HomeComponent implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+
+  openDeleteModal(item: any) {
+    this.selectedItem = item;
+    this.showModal = true;
+  }
+
+  confirmDelete(): void {
+    if (this.selectedItem) {
+      this.trainComponentService.deleteTrainComponent(this.selectedItem.id).subscribe({
+        next: () => {
+          this.TrainComponentsList.items = this.TrainComponentsList.items.filter(c => c.id !== this.selectedItem.id);
+          this.totalItems--;
+          this.calculateTotalPages();
+          this.selectedItem = null;
+          this.showModal = false; 
+        },
+        error: (err) => {
+          console.log('Error deleting train component:', err);
+          this.showModal = false; 
+        }
+      });
+    }
+  }
+
+  cancelDelete() {
+    this.showModal = false;
   }
 
 }
