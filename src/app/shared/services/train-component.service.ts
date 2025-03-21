@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TrainComponentsListModel } from '../models/TrainComponentsListModel';
+import { TrainComponentsModel } from '../models/TrainComponentsModel';
 import { AuthService } from './auth.service'; 
 
 @Injectable({
@@ -34,6 +35,16 @@ export class TrainComponentService {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         'Authorization': `Bearer ${auth_token}`
+      })
+    });
+  }
+
+  createTrainComponent(component: TrainComponentsModel): Observable<TrainComponentsModel> {
+    const auth_token = this.authService.getToken(); 
+    return this.http.post<TrainComponentsModel>(`${environment.apiUrl}TrainComponents`, component, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+         'Authorization': `Bearer ${auth_token}`
       })
     });
   }

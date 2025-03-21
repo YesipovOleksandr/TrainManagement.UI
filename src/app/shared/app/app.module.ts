@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainPageModule } from 'src/app/main-page/main-page.module';
 import { HeaderComponent } from '../components/header/header.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { LoginComponent } from '../../login/login.component';
@@ -14,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateTimeService } from '../services/datetime.service';
+import { MainPageModule } from '../../main-page/main-page.module';
 
 export function tokenGetter() { 
   return localStorage.getItem("token"); 
@@ -27,11 +27,11 @@ export function tokenGetter() {
     LoginComponent,
   ],
   imports: [
+    MainPageModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MainPageModule,
     BrowserAnimationsModule, 
     JwtModule.forRoot({
       config: {

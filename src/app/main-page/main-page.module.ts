@@ -22,6 +22,7 @@ const homeRoutes: Routes = [
   ],
   exports: [
     HomeComponent,
+    DeleteModalComponent
   ]
 })
 export class MainPageModule { }

@@ -1,0 +1,32 @@
+<div class="create-container">
+  <form class="form_block" #createForm="ngForm" (ngSubmit)="createTrainComponent(createForm)">
+    <h2 class="title">Create Train Component</h2>
+
+    <label for="name" class="sr-only">Name</label>
+    <input id="name" name="name" [(ngModel)]="newTrainComponent.name"
+      class="form-control" placeholder="Name" required #name="ngModel">
+    
+    <label for="uniqueNumber" class="sr-only">Unique Number</label>
+    <input id="uniqueNumber" name="uniqueNumber" [(ngModel)]="newTrainComponent.uniqueNumber"
+      class="form-control {{invalidCreate?'error':''}}" placeholder="Unique Number" required #uniqueNumber="ngModel">
+
+    <label for="canAssignQuantity" class="sr-only">Can Assign Quantity</label>
+    <input id="canAssignQuantity" name="canAssignQuantity" [(ngModel)]="newTrainComponent.canAssignQuantity"
+      class="form-control" placeholder="Can Assign Quantity" type="checkbox" #canAssignQuantity="ngModel">
+      
+    <div *ngIf="newTrainComponent.canAssignQuantity">
+      <label for="quantity" class="sr-only">Quantity</label>
+      <input id="quantity" name="quantity" [(ngModel)]="newTrainComponent.quantity"
+        class="form-control" placeholder="Quantity" 
+        [value]="newTrainComponent.quantity" required #quantity="ngModel"
+        [min]="0" type="number" step="1">
+      <div *ngIf="quantity.invalid && quantity.touched">
+        <small class="text-danger">Quantity must be a positive number.</small>
+      </div>
+    </div>
+
+    <div class="alert alert-danger {{invalidCreate?'error_label':''}}">{{invalidCreate}}</div>
+
+    <button class="btn btn-lg btn-primary" type="submit" [disabled]="createForm.invalid">Create</button>
+  </form>
+</div>
